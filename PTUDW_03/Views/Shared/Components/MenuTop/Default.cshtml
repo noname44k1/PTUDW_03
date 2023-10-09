@@ -7,9 +7,9 @@
     <li class="drop-holder">
         <a href="/@item.Alias">
             @item.Title
-            @*<i class="fa fa-chevron-down"></i>*@
+            <i class="fa fa-chevron-down"></i>
         </a>
-        @if (menuChild != null)
+        @if (menuChild.Count() > 0)
         {
             <ul class="drop-menu">
                 @foreach (var itemChild in menuChild)
