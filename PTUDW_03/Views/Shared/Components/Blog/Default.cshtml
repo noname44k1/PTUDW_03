@@ -4,6 +4,26 @@
     List<TbBlogComment> blogComment = ViewBag.blogComment;
 }
 
+<style>
+    .title {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* số dòng hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .short-desc {
+        display: block;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* số dòng hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+
 @foreach(var item in Model)
 {
     var listComment = blogComment.Where(i => i.BlogId == item.BlogId);
