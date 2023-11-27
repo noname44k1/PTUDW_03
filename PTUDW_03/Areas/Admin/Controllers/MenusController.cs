@@ -10,11 +10,11 @@ using PTUDW_03.Models;
 namespace PTUDW_03.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class TbMenusController : Controller
+    public class MenusController : Controller
     {
         private readonly HarmicContext _context;
 
-        public TbMenusController(HarmicContext context)
+        public MenusController(HarmicContext context)
         {
             _context = context;
         }
@@ -138,21 +138,23 @@ namespace PTUDW_03.Areas.Admin.Controllers
 
         // POST: Admin/TbMenus/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        //[ValidateAntiForgeryToken]
+        public bool DeleteConfirmed(int id)
         {
-            if (_context.TbMenus == null)
+            try
             {
-                return Problem("Entity set 'HarmicContext.TbMenus'  is null.");
+                var tbMenu = _context.TbMenus.Find(id);
+                if (tbMenu != null)
+                {
+                    _context.TbMenus.Remove(tbMenu);
+                    _context.SaveChangesAsync();
+                }
+                return true;
             }
-            var tbMenu = await _context.TbMenus.FindAsync(id);
-            if (tbMenu != null)
+            catch
             {
-                _context.TbMenus.Remove(tbMenu);
+                return false;
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool TbMenuExists(int id)
